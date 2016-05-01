@@ -5,5 +5,8 @@
     <string name="app_settings">设置</string>
     <string name="app_detail">详情页面</string>
     <string name="action_search">搜索</string>
+    <string name="open_drawer">抽屉打开</string>
+    <string name="close_drawer">抽屉关闭</string>
+
 
 </resources>

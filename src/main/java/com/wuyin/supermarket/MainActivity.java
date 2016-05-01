@@ -2,28 +2,76 @@ package com.wuyin.supermarket;
 
 
 import android.os.Build;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
 
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBar mActionBar;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
+        mActionBar = getSupportActionBar();
         //显示原始的箭头的
-        //actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        // mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeButtonEnabled(true);
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        addTab(actionBar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
+        addTab(mActionBar);
+
+        drawerToggle();
+
+    }
+
+    private void drawerToggle() {
+        /*
+         *	1）显示Navigation Drawer的 Activity 对象
+			2） DrawerLayout 对象
+			3）一个用来指示Navigation Drawer的 drawable资源
+			4）一个用来描述打开Navigation Drawer的文本 (用于支持可访问性)。
+			5）一个用来描述关闭Navigation Drawer的文本(用于支持可访问性).
+		 */
+        mDrawerToggle =
+                new ActionBarDrawerToggle(this,
+                        mDrawerLayout,
+                        R.mipmap.ic_drawer_am,
+                        R.string.open_drawer,
+                        R.string.close_drawer) {
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        super.onDrawerOpened(drawerView);
+                        Toast.makeText(MainActivity.this, "抽屉关闭", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        super.onDrawerClosed(drawerView);
+                        Toast.makeText(MainActivity.this, "抽屉打开", Toast.LENGTH_SHORT).show();
+                    }
+                };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        //让开关和actionBar建立关系
+        mDrawerToggle.syncState();
     }
 
     /**
@@ -74,7 +122,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
             default:
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) | super.onOptionsItemSelected(item);
     }
 
     /**
