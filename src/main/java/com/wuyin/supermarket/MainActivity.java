@@ -4,6 +4,7 @@ package com.wuyin.supermarket;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -21,23 +22,51 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
     private ActionBar mActionBar;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mActionBar = getSupportActionBar();
-        //显示原始的箭头的
-        // mActionBar.setDisplayShowHomeEnabled(true);
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
-        addTab(mActionBar);
+        initViews();
+
+
+        addTab();
+
+        initViewPager();
+
 
         drawerToggle();
 
+    }
+
+    /**
+     * 处理ViewPager的有关设置
+     */
+    private void initViewPager() {
+        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                //当翻ViewPager的时候给actionBar的位置切换
+                getSupportActionBar().setSelectedNavigationItem(position);
+
+            }
+        });
+    }
+
+    /**
+     * 初始化布局控件
+     */
+    private void initViews() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
     }
 
     private void drawerToggle() {
@@ -76,22 +105,27 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
 
     /**
      * 添加tab标签
-     *
-     * @param actionBar
      */
-    private void addTab(ActionBar actionBar) {
-        ActionBar.Tab tab1 = actionBar.newTab().setText("标签一")
+    private void addTab() {
+        mActionBar = getSupportActionBar();
+        //显示原始的箭头的
+        // mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeButtonEnabled(true);
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        ActionBar.Tab tab1 = mActionBar.newTab().setText("标签一")
                 .setTabListener(this);
-        actionBar.addTab(tab1);
-        ActionBar.Tab tab2 = actionBar.newTab().setText("标签二")
+        mActionBar.addTab(tab1);
+        ActionBar.Tab tab2 = mActionBar.newTab().setText("标签二")
                 .setTabListener(this);
-        actionBar.addTab(tab2);
-        ActionBar.Tab tab3 = actionBar.newTab().setText("标签三")
+        mActionBar.addTab(tab2);
+        ActionBar.Tab tab3 = mActionBar.newTab().setText("标签三")
                 .setTabListener(this);
-        actionBar.addTab(tab3);
-        ActionBar.Tab tab4 = actionBar.newTab().setText("标签四")
+        mActionBar.addTab(tab3);
+        ActionBar.Tab tab4 = mActionBar.newTab().setText("标签四")
                 .setTabListener(this);
-        actionBar.addTab(tab4);
+        mActionBar.addTab(tab4);
     }
 
 
@@ -122,15 +156,10 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
             default:
                 break;
         }
+
         return mDrawerToggle.onOptionsItemSelected(item) | super.onOptionsItemSelected(item);
     }
 
-    /**
-     * 打开设置的方法
-     */
-    private void openSettings() {
-
-    }
 
     /**
      * 打开搜索方法
@@ -163,9 +192,15 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         return true;
     }
 
+    /**
+     * 当Tab被选中的时候，ViewPager切换到指定的位置
+     *
+     * @param tab
+     * @param ft
+     */
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+        mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
@@ -177,4 +212,6 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
+
+
 }
