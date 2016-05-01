@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">电子市场</string>
+    <string name="app_search">搜索</string>
+    <string name="app_settings">设置</string>
+    <string name="app_detail">详情页面</string>
+
+</resources>
