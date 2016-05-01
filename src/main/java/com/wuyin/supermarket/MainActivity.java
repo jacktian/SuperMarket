@@ -4,6 +4,7 @@ package com.wuyin.supermarket;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -21,6 +22,8 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
     private DrawerLayout mDrawerLayout;
     private ActionBar mActionBar;
     private ActionBarDrawerToggle mDrawerToggle;
+    private PagerTabStrip mPagerTabStrip;
+
 
     private ViewPager mViewPager;
 
@@ -48,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
     private void initViewPager() {
         mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
 
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+       /* mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -57,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
                 getSupportActionBar().setSelectedNavigationItem(position);
 
             }
-        });
+        });*/
     }
 
     /**
@@ -67,6 +70,10 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
+        //设置标签下划线的颜色
+        mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.indicatorcolor));
     }
 
     private void drawerToggle() {
@@ -112,8 +119,8 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         // mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+        //mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+/*
         ActionBar.Tab tab1 = mActionBar.newTab().setText("标签一")
                 .setTabListener(this);
         mActionBar.addTab(tab1);
@@ -125,7 +132,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         mActionBar.addTab(tab3);
         ActionBar.Tab tab4 = mActionBar.newTab().setText("标签四")
                 .setTabListener(this);
-        mActionBar.addTab(tab4);
+        mActionBar.addTab(tab4);*/
     }
 
 

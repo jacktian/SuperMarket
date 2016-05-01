@@ -25,4 +25,9 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 4;
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "标签" + position;
+    }
 }
