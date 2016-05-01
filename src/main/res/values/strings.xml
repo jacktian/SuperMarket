@@ -4,5 +4,6 @@
     <string name="app_search">搜索</string>
     <string name="app_settings">设置</string>
     <string name="app_detail">详情页面</string>
+    <string name="action_search">搜索</string>
 
 </resources>

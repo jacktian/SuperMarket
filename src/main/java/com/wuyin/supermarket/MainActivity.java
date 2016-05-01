@@ -2,21 +2,49 @@ package com.wuyin.supermarket;
 
 
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        //显示原始的箭头的
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        addTab(actionBar);
+
     }
 
+    /**
+     * 添加tab标签
+     *
+     * @param actionBar
+     */
+    private void addTab(ActionBar actionBar) {
+        ActionBar.Tab tab1 = actionBar.newTab().setText("标签一")
+                .setTabListener(this);
+        actionBar.addTab(tab1);
+        ActionBar.Tab tab2 = actionBar.newTab().setText("标签二")
+                .setTabListener(this);
+        actionBar.addTab(tab2);
+        ActionBar.Tab tab3 = actionBar.newTab().setText("标签三")
+                .setTabListener(this);
+        actionBar.addTab(tab3);
+        ActionBar.Tab tab4 = actionBar.newTab().setText("标签四")
+                .setTabListener(this);
+        actionBar.addTab(tab4);
+    }
 
 
     @Override
@@ -37,9 +65,12 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
             case R.id.action_search:
                 openSearch();
                 break;
-            case R.id.action_settings:
+           /* case R.id.action_settings:
                 openSettings();
-                break;
+                break;*/
+           /* case android.R.id.home:
+                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+                break;*/
             default:
                 break;
         }
@@ -57,7 +88,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
      * 打开搜索方法
      */
     private void openSearch() {
-       // Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -84,4 +115,18 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         return true;
     }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
 }
