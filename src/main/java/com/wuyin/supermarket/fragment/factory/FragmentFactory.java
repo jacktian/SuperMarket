@@ -8,6 +8,7 @@ import com.wuyin.supermarket.fragment.GameFragment;
 import com.wuyin.supermarket.fragment.HomeFragment;
 import com.wuyin.supermarket.fragment.SubjectFragment;
 import com.wuyin.supermarket.fragment.TopFragment;
+import com.wuyin.supermarket.fragment.base.BaseFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,10 +18,10 @@ import java.util.Map;
  */
 public class FragmentFactory {
 
-    private static Map<Integer,Fragment> mFragmentMaps = new HashMap<>();
+    private static Map<Integer,BaseFragment> mFragmentMaps = new HashMap<>();
 
-    public static Fragment createFragment(int position){
-        Fragment fragment = null;
+    public static BaseFragment createFragment(int position){
+        BaseFragment fragment = null;
         //重新取出来fragment
         fragment = mFragmentMaps.get(position);
         if (fragment == null) {  //如果在集合中没有

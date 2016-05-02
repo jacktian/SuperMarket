@@ -1,4 +1,4 @@
-package com.wuyin.supermarket.fragment;
+package com.wuyin.supermarket.fragment.base;
 
 
 import android.os.Bundle;
@@ -12,38 +12,36 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.wuyin.supermarket.R;
-import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.utils.ViewUtils;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
+public abstract class BaseFragment extends Fragment {
 
-   /* private FrameLayout mFrameLayout;
+    private FrameLayout mFrameLayout;
 
-    *//**
+    /**
      * 四种界面
-     *//*
+     */
     private View loadView;//加载中的界面
     private View errorView;//加载错误界面
     private View emptyView;//加载空界面
     private View successView;//加载成功的界面
 
-    *//**
+    /**
      * 五种状态
-     *//*
+     */
     public static final int STATE_UNKNOE = 0;
     public static final int STATE_LOADING = 1;
     public static final int STATE_ERROR = 2;
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
     public static int STATE = STATE_UNKNOE;
-*/
+
     private Button btnInit;
 
-/*
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,30 +54,15 @@ public class HomeFragment extends BaseFragment {
             //先干掉之前的parent
             ViewUtils.remoteParent(mFrameLayout);
         }
-       // showPage();//根据不同的状态显示不同的界面
+        // showPage();//根据不同的状态显示不同的界面
         show();//根据服务器的数据切换状态
 
         return mFrameLayout;
-    }*/
-/*
-
-    public enum LoadResult {
-        error(2), empty(3), success(4);
-        int value;
-
-        LoadResult(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
     }
-*/
 
-   /* *//**
+    /**
      * 根据服务器的数据切换状态
-     *//*
+     */
     private void show() {
 
         if (STATE == STATE_ERROR || STATE == STATE_EMPTY) {
@@ -107,12 +90,89 @@ public class HomeFragment extends BaseFragment {
         //请求服务器，获取服务器上的数据，进行判断
         showPage();
 
-    }*/
-
-    public LoadResult load() {
+    }
 
 
-        return LoadResult.success;
+    /**
+     * 请求服务器
+     * @return
+     */
+    public abstract LoadResult load();
+
+    /**
+     * 创建成功的界面
+     * @return
+     */
+    public abstract View createSuccessView();
+
+    public enum LoadResult {
+        error(2), empty(3), success(4);
+        int value;
+
+        LoadResult(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+
+    /**
+     * 添加四种不同的界面
+     */
+    private void init() {
+
+        if (loadView == null) {
+            loadView = createLoadingView();//创建加载中的界面
+            mFrameLayout.addView(loadView,
+                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
+
+
+        if (errorView == null) {
+            errorView = createErrorView();//创建加载失败的界面
+            mFrameLayout.addView(errorView,
+                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
+
+
+        if (emptyView == null) {
+            emptyView = createEmptyView();
+            mFrameLayout.addView(emptyView,
+                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
+
+    }
+
+
+    /**
+     * 创建加载为空的界面
+     *
+     * @return
+     */
+    private View createEmptyView() {
+        View view = View.inflate(getActivity(), R.layout.empty_page, null);
+
+        return view;
+    }
+
+    /**
+     * 创建加载失败的view
+     *
+     * @return
+     */
+    private View createErrorView() {
+        View view = View.inflate(getActivity(), R.layout.error_page, null);
+        btnInit = (Button) view.findViewById(R.id.page_bt);
+        btnInit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show();
+            }
+        });
+        return view;
     }
 
     /**
@@ -121,7 +181,7 @@ public class HomeFragment extends BaseFragment {
      * 2、错误界面
      * 3、数据为空的界面
      * 4、请求成功的界面
-     *//*
+     */
     private void showPage() {
 
         if (loadView != null) {
@@ -144,58 +204,21 @@ public class HomeFragment extends BaseFragment {
                 // successView.setVisibility(View.VISIBLE);
             }
         }
-    }*/
+    }
+
+
 
     /**
-     * 创建成功的界面
-     *
-     * @return
-     */
-    public View createSuccessView() {
-        TextView tv = new TextView(getActivity());
-        tv.setTextSize(30);
-        tv.setText("加载成功");
-        return tv;
-    }
-
-
-   /* *//**
-     * 创建加载为空的界面
-     *
-     * @return
-     *//*
-    private View createEmptyView() {
-        View view = View.inflate(getActivity(), R.layout.empty_page, null);
-
-        return view;
-    }
-
-    *//**
-     * 创建加载失败的view
-     *
-     * @return
-     *//*
-    private View createErrorView() {
-        View view = View.inflate(getActivity(), R.layout.error_page, null);
-        btnInit = (Button) view.findViewById(R.id.page_bt);
-        btnInit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                show();
-            }
-        });
-        return view;
-    }
-
-    *//**
      * 创建加载中的界面
      *
      * @return
-     *//*
+     */
     private View createLoadingView() {
         View view = View.inflate(getActivity(), R.layout.loading_page, null);
+
         return view;
     }
-*/
+
+
 
 }

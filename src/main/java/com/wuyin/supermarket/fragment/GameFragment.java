@@ -8,23 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.fragment.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GameFragment extends Fragment {
-
-
-    public GameFragment() {
-        // Required empty public constructor
-    }
+public class GameFragment extends BaseFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false);
+    public LoadResult load() {
+        return LoadResult.error;
     }
 
+    @Override
+    public View createSuccessView() {
+        return null;
+    }
 }
