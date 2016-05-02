@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
+import com.wuyin.supermarket.view.LoadingPage;
 
 
 /**
@@ -18,8 +19,8 @@ public class AppFragment extends BaseFragment {
 
 
     @Override
-    public LoadResult load() {
-        return LoadResult.error;
+    public LoadingPage.LoadResult load() {
+        return LoadingPage.LoadResult.error;
     }
 
     @Override
