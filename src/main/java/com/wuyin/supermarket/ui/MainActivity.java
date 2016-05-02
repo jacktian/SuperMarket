@@ -1,6 +1,7 @@
 package com.wuyin.supermarket.ui;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
@@ -113,6 +114,8 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         mDrawerToggle.syncState();
 
         initViewPager();
+
+        //sendBroadcast(new Intent("com.wuyin.supermarket.killAll"));
     }
 
     /**

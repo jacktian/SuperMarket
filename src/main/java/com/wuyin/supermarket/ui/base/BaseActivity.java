@@ -1,5 +1,8 @@
 package com.wuyin.supermarket.ui.base;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
@@ -13,15 +16,26 @@ public class BaseActivity extends ActionBarActivity {
     //管理运行的所有的activity  增删比较快
     public final static List<BaseActivity> mActivities = new LinkedList<>();
 
+    protected KillAllReceive mReceive;
+
+    public class KillAllReceive extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
+        mReceive = new KillAllReceive();
+        //IntentFilter filter = new IntentFilter("com.wuyin.supermarket.killAll");
+        //registerReceiver(mReceive,filter);
         synchronized (mActivities) {
             mActivities.add(this);
         }
-
         init();
         initView();
         initActionBar();
