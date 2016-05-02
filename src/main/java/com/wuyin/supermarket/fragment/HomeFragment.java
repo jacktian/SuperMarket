@@ -4,11 +4,19 @@ package com.wuyin.supermarket.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.wuyin.supermarket.HomeHttpRequest;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
+import com.wuyin.supermarket.http.OkHttpManager;
+import com.wuyin.supermarket.utils.LogUtils;
 import com.wuyin.supermarket.view.LoadingPage;
+
+import java.io.IOException;
 
 
 /**
@@ -32,9 +40,29 @@ public class HomeFragment extends BaseFragment {
 
 
     public LoadingPage.LoadResult load() {
+        String url = "http://192.168.1.103:8080/WebInfos/app/homelist0";
 
+        final HomeHttpRequest request = new HomeHttpRequest();
+
+        // request.load(0);
+        OkHttpManager.getAsync(url, new OkHttpManager.DataCallBack() {
+            @Override
+            public void requestFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                parseJson(result);
+            }
+        });
 
         return LoadingPage.LoadResult.success;
+    }
+
+    private void parseJson(String result) {
+
+        Log.d("HomeFragment", result);
     }
 
     /**

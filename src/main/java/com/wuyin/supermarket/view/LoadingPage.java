@@ -115,7 +115,7 @@ public abstract class LoadingPage extends FrameLayout {
         }
 
     }
-
+//223.72.76.107
 
     /**
      * 根据服务器的数据切换状态
