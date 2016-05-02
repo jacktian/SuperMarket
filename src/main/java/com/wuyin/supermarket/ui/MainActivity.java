@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.wuyin.supermarket.UIUtils;
 import com.wuyin.supermarket.adapter.MyViewPagerAdapter;
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.ui.base.BaseActivity;
@@ -30,25 +31,26 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
 
     private ViewPager mViewPager;
+    private String[] mStrings;
 
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-        //initViews();
+    /* @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
 
 
-        //addTab();
 
-        //initViewPager();
+         //initViews();
 
 
-        //drawerToggle();
+         //addTab();
 
-    }
-*/
+         //initViewPager();
+
+
+         //drawerToggle();
+
+     }
+ */
     @Override
     protected void initView() {
         super.init();
@@ -60,6 +62,13 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
         //设置标签下划线的颜色
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.indicatorcolor));
+
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        mStrings = UIUtils.getStringArray(R.array.tab_names);
 
     }
 
@@ -112,7 +121,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
      * 处理ViewPager的有关设置
      */
     private void initViewPager() {
-        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(),mStrings));
 
        /* mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

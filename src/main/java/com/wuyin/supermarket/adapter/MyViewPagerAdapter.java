@@ -5,32 +5,50 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.wuyin.supermarket.fragment.AppFragment;
+import com.wuyin.supermarket.fragment.CategoryFragment;
+import com.wuyin.supermarket.fragment.GameFragment;
 import com.wuyin.supermarket.fragment.HomeFragment;
+import com.wuyin.supermarket.fragment.SubjectFragment;
+import com.wuyin.supermarket.fragment.TopFragment;
 
 /**
  * Created by wuyin on 2016/5/2.
  */
 public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
-    public MyViewPagerAdapter(FragmentManager fm) {
+
+    private String[] mTitles;
+
+    public MyViewPagerAdapter(FragmentManager fm, String[] titles) {
         super(fm);
+        mTitles = titles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0){
-            return new HomeFragment();
-        } else {
-            return new AppFragment();
+        switch (position) {
+            case 0:
+                return new HomeFragment();
+            case 1:
+                return new SubjectFragment();
+            case 2:
+                return new GameFragment();
+            case 3:
+                return new SubjectFragment();
+            case 4:
+                return new CategoryFragment();
+            case 5:
+                return new TopFragment();
         }
+        return null;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return mTitles.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "标签" + position;
+        return mTitles[position];
     }
 }

@@ -1,12 +1,10 @@
 package com.wuyin.supermarket.ui.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.wuyin.supermarket.R;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
