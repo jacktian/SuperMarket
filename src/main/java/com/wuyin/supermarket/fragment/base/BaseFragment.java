@@ -37,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
     public static final int STATE_ERROR = 2;
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
-    public static int STATE = STATE_UNKNOE;
+    public int STATE = STATE_UNKNOE;
 
     private Button btnInit;
 
@@ -55,7 +55,7 @@ public abstract class BaseFragment extends Fragment {
             ViewUtils.remoteParent(mFrameLayout);
         }
         // showPage();//根据不同的状态显示不同的界面
-        show();//根据服务器的数据切换状态
+        //show();//根据服务器的数据切换状态
 
         return mFrameLayout;
     }
@@ -63,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 根据服务器的数据切换状态
      */
-    private void show() {
+    public void show() {
 
         if (STATE == STATE_ERROR || STATE == STATE_EMPTY) {
             STATE = STATE_LOADING;
@@ -203,7 +203,12 @@ public abstract class BaseFragment extends Fragment {
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 // successView.setVisibility(View.VISIBLE);
             }
+        } else {
+            if (successView != null){
+                successView.setVisibility(View.INVISIBLE);
+            }
         }
+
     }
 
 

@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.wuyin.supermarket.fragment.base.BaseFragment;
+import com.wuyin.supermarket.fragment.factory.FragmentFactory;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.adapter.MyViewPagerAdapter;
 import com.wuyin.supermarket.R;
@@ -124,16 +126,19 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
     private void initViewPager() {
         mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(),mStrings));
 
-       /* mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
                 //当翻ViewPager的时候给actionBar的位置切换
-                getSupportActionBar().setSelectedNavigationItem(position);
+               // getSupportActionBar().setSelectedNavigationItem(position);
 
+                //通过fragment的工厂类来获取当前显示的fragment
+                BaseFragment fragment = FragmentFactory.createFragment(position);
+                fragment.show();//当切换界面的时候，重新请求服务器
             }
-        });*/
+        });
     }
 /*
 

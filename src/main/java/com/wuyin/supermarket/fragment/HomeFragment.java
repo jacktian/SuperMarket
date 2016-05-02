@@ -3,6 +3,7 @@ package com.wuyin.supermarket.fragment;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class HomeFragment extends BaseFragment {
     public static final int STATE_SUCCESS = 4;
     public static int STATE = STATE_UNKNOE;
 */
-    private Button btnInit;
+    //private Button btnInit;
 
 /*
     @Override
@@ -77,7 +78,19 @@ public class HomeFragment extends BaseFragment {
     }
 */
 
-   /* *//**
+    /**
+     * 当fragment挂载到activity中的时候调用，要不然有个问题
+     * 就是当我们第一次进入到app的时候，因为第一个首先加载的是homefragment
+     * 所以我们要去加载之前去加载一下
+     * @param savedInstanceState
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        show();
+    }
+
+    /* *//**
      * 根据服务器的数据切换状态
      *//*
     private void show() {
