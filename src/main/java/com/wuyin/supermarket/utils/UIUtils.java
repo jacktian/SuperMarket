@@ -1,4 +1,4 @@
-package com.wuyin.supermarket;
+package com.wuyin.supermarket.utils;
 
 
 import android.content.res.Resources;

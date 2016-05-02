@@ -10,6 +10,7 @@ import com.wuyin.supermarket.fragment.GameFragment;
 import com.wuyin.supermarket.fragment.HomeFragment;
 import com.wuyin.supermarket.fragment.SubjectFragment;
 import com.wuyin.supermarket.fragment.TopFragment;
+import com.wuyin.supermarket.fragment.factory.FragmentFactory;
 
 /**
  * Created by wuyin on 2016/5/2.
@@ -25,7 +26,8 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
+        //通过Fragment工厂来生成fragment
+       /* switch (position) {
             case 0:
                 return new HomeFragment();
             case 1:
@@ -38,8 +40,8 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new CategoryFragment();
             case 5:
                 return new TopFragment();
-        }
-        return null;
+        }*/
+        return FragmentFactory.createFragment(position);
     }
 
     @Override

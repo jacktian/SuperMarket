@@ -11,7 +11,7 @@ import java.util.List;
 public class BaseActivity extends ActionBarActivity {
 
     //管理运行的所有的activity  增删比较快
-    List<BaseActivity> mActivities = new LinkedList<>();
+    public final static List<BaseActivity> mActivities = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class BaseActivity extends ActionBarActivity {
         //复制了一份MainActivity
         List<BaseActivity> actis;
         synchronized (mActivities) {
-             actis = new LinkedList<>(mActivities);
+            actis = new LinkedList<>(mActivities);
         }
         for (BaseActivity activity : actis) {
             activity.finish();

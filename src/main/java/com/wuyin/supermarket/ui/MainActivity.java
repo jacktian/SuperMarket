@@ -8,15 +8,13 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.wuyin.supermarket.UIUtils;
+import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.adapter.MyViewPagerAdapter;
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.ui.base.BaseActivity;
