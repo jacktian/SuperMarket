@@ -1,4 +1,4 @@
-package com.wuyin.supermarket;
+package com.wuyin.supermarket.ui;
 
 
 import android.os.Build;
@@ -16,7 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
+import com.wuyin.supermarket.adapter.MyViewPagerAdapter;
+import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.ui.base.BaseActivity;
+
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
 
 
     private DrawerLayout mDrawerLayout;
@@ -27,22 +31,81 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
 
     private ViewPager mViewPager;
 
-    @Override
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        //initViews();
+
+
+        //addTab();
+
+        //initViewPager();
+
+
+        //drawerToggle();
+
+    }
+*/
+    @Override
+    protected void initView() {
+        super.init();
         setContentView(R.layout.activity_main);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        initViews();
+        mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
+        //设置标签下划线的颜色
+        mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.indicatorcolor));
 
+    }
 
-        addTab();
+    @Override
+    protected void initActionBar() {
+        super.initActionBar();
+
+        mActionBar = getSupportActionBar();
+        //显示原始的箭头的
+        // mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeButtonEnabled(true);
+
+         /*
+         *	1）显示Navigation Drawer的 Activity 对象
+			2） DrawerLayout 对象
+			3）一个用来指示Navigation Drawer的 drawable资源
+			4）一个用来描述打开Navigation Drawer的文本 (用于支持可访问性)。
+			5）一个用来描述关闭Navigation Drawer的文本(用于支持可访问性).
+		 */
+        mDrawerToggle =
+                new ActionBarDrawerToggle(this,
+                        mDrawerLayout,
+                        R.mipmap.ic_drawer_am,
+                        R.string.open_drawer,
+                        R.string.close_drawer) {
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        super.onDrawerOpened(drawerView);
+                        Toast.makeText(MainActivity.this, "抽屉关闭", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        super.onDrawerClosed(drawerView);
+                        Toast.makeText(MainActivity.this, "抽屉打开", Toast.LENGTH_SHORT).show();
+                    }
+                };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        //让开关和actionBar建立关系
+        mDrawerToggle.syncState();
 
         initViewPager();
-
-
-        drawerToggle();
-
     }
 
     /**
@@ -62,10 +125,13 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
             }
         });*/
     }
+/*
 
-    /**
+    */
+/**
      * 初始化布局控件
-     */
+     *//*
+
     private void initViews() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
@@ -75,6 +141,7 @@ public class MainActivity extends ActionBarActivity implements SearchView.OnQuer
         //设置标签下划线的颜色
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.indicatorcolor));
     }
+*/
 
     private void drawerToggle() {
         /*

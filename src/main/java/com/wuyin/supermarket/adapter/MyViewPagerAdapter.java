@@ -1,8 +1,11 @@
-package com.wuyin.supermarket;
+package com.wuyin.supermarket.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.wuyin.supermarket.fragment.AppFragment;
+import com.wuyin.supermarket.fragment.HomeFragment;
 
 /**
  * Created by wuyin on 2016/5/2.
