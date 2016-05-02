@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.manager.ThreadManager;
 import com.wuyin.supermarket.utils.UIUtils;
 
 /**
@@ -125,22 +126,24 @@ public abstract class LoadingPage extends FrameLayout {
             STATE = STATE_LOADING;
         }
 
-        new Thread() {
-            @Override
-            public void run() {
-                SystemClock.sleep(2000);
-                final LoadResult result = load();
-                UIUtils.runOnUiThread(new Runnable() {
+        ThreadManager.getInstance().createShortPool(3,3,5000)
+                .execute(new Runnable() {
                     @Override
                     public void run() {
-                        if (result != null) {
-                            STATE = result.getValue();
-                            showPage();  //状态改变，重新判断当前应该显示的是哪个界面
-                        }
+                        SystemClock.sleep(2000);
+                        final LoadResult result = load();
+                        UIUtils.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (result != null) {
+                                    STATE = result.getValue();
+                                    showPage();  //状态改变，重新判断当前应该显示的是哪个界面
+                                }
+                            }
+                        });
                     }
                 });
-            }
-        }.start();
+
         //请求服务器，获取服务器上的数据，进行判断
         showPage();
 
