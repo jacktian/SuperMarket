@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.utils.ViewUtils;
 
 
 /**
@@ -45,10 +47,17 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // View view = inflater.inflate(R.layout.fragment_home, container, false);
-        mFrameLayout = new FrameLayout(getActivity());
-        init();  //在FrameLayout中添加四种不同的布局
-        showPage();//根据不同的状态显示不同的界面
+        //framelayout不为空的时候在去new
+        if (mFrameLayout == null) {
+            mFrameLayout = new FrameLayout(getActivity());
+            init();  //在FrameLayout中添加四种不同的布局
+        } else {
+            //先干掉之前的parent
+            ViewUtils.remoteParent(mFrameLayout);
+        }
+       // showPage();//根据不同的状态显示不同的界面
         show();//根据服务器的数据切换状态
+
         return mFrameLayout;
     }
 
@@ -79,16 +88,17 @@ public class HomeFragment extends Fragment {
             public void run() {
                 SystemClock.sleep(2000);
                 final LoadResult result = load();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (result != null) {
-                            STATE = result.getValue();
-                            showPage();  //状态改变，重新判断当前应该显示的是哪个界面
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (result != null) {
+                                STATE = result.getValue();
+                                showPage();  //状态改变，重新判断当前应该显示的是哪个界面
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
             }
         }.start();
         //请求服务器，获取服务器上的数据，进行判断
@@ -98,7 +108,8 @@ public class HomeFragment extends Fragment {
 
     private LoadResult load() {
 
-        return LoadResult.error;
+
+        return LoadResult.success;
     }
 
     /**
@@ -122,6 +133,26 @@ public class HomeFragment extends Fragment {
             emptyView.setVisibility(STATE == STATE_EMPTY
                     ? View.VISIBLE : View.INVISIBLE);
         }
+        if (STATE == STATE_SUCCESS) {
+            successView = createSuccessView();
+            if (successView != null) {
+                mFrameLayout.addView(successView,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                // successView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    /**
+     * 创建成功的界面
+     *
+     * @return
+     */
+    private View createSuccessView() {
+        TextView tv = new TextView(getActivity());
+        tv.setTextSize(30);
+        tv.setText("加载成功");
+        return tv;
     }
 
     /**
