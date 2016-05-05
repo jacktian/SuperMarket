@@ -1,4 +1,4 @@
-package com.wuyin.supermarket.http;
+package com.wuyin.supermarket.manager;
 
 import android.os.Handler;
 import android.os.Looper;

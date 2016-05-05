@@ -11,6 +11,8 @@ import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.utils.ViewUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -46,6 +48,21 @@ public abstract class BaseFragment extends Fragment {
         //show();//根据服务器的数据切换状态
 
         return mFrameLayout;
+    }
+
+    /**
+     * 校验数据
+     * @param datas
+     * @return
+     */
+    public  LoadingPage.LoadResult checkLoad(List datas) {
+        if (datas == null){
+            return LoadingPage.LoadResult.error;  //解析失敗
+        } else if (datas.size() == 0){
+            return LoadingPage.LoadResult.empty;
+        } else {
+            return LoadingPage.LoadResult.success;
+        }
     }
 
 
