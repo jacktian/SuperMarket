@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wuyin.supermarket.adapter.BaseHolder;
 import com.wuyin.supermarket.adapter.DefaultAdapter;
 import com.wuyin.supermarket.httpresult.HomeHttpRequest;
 import com.wuyin.supermarket.R;
@@ -75,44 +76,36 @@ public class HomeFragment extends BaseFragment {
         }
 
 
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            AppInfo appInfo = appInfos.get(position);
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
+        public BaseHolder<AppInfo> getHolder() {
 
-            holder.setAppInfo(appInfo);
-
-            return holder.getContenView();
+            return new ViewHolder();
         }
     }
 
     /**
      * ViewHolder
      */
-    class ViewHolder {
+    class ViewHolder extends BaseHolder<AppInfo> {
         ImageView image_item;
         TextView item_title, item_size, item_bottom;
         RatingBar item_rating;
 
         private View contenView;
 
-        private AppInfo appInfo;
 
-        public void setAppInfo(AppInfo appInfo) {
-            this.appInfo = appInfo;
-            refreshView();
-        }
 
         public View getContenView() {
             return contenView;
         }
 
         public ViewHolder() {
+
+        }
+
+        @Override
+        public View initView() {
             contenView = View.inflate(UIUtils.getContext(), R.layout.home_item, null);
             image_item = (ImageView) contenView.findViewById(R.id.item_icon);
             item_title = (TextView) contenView.findViewById(R.id.item_title);
@@ -120,29 +113,29 @@ public class HomeFragment extends BaseFragment {
             item_bottom = (TextView) contenView.findViewById(R.id.item_bottom);
             item_rating = (RatingBar) contenView.findViewById(R.id.item_rating);
             contenView.setTag(this);
+            return contenView;
         }
 
-        /**
-         * 刷新view的方法
-         */
-        public void refreshView() {
+        @Override
+        public void refreshData(AppInfo data) {
             //加载图片
             Glide.with(UIUtils.getContext())
-                    .load(Constants.IMAGE_URL + appInfo.getIconUrl())
+                    .load(Constants.IMAGE_URL + data.getIconUrl())
                     .error(R.mipmap.ic_default)
                     .into(image_item);
 
-            item_title.setText(appInfo.getName());
+            item_title.setText(data.getName());
 
             //得到app的大小
-            String size = android.text.format.Formatter.formatFileSize(UIUtils.getContext(), appInfo.getSize());
+            String size = android.text.format.Formatter.formatFileSize(UIUtils.getContext(), data.getSize());
             item_size.setText(size);
-            item_bottom.setText(appInfo.getDes());
+            item_bottom.setText(data.getDes());
 
             //设置ratingBar
-            float stars = appInfo.getStars();
+            float stars = data.getStars();
             item_rating.setRating(stars);
         }
+
     }
 
 

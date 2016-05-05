@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by yinlong on 2016/5/5.
  */
-public class DefaultAdapter<T> extends BaseAdapter {
+public abstract class DefaultAdapter<T> extends BaseAdapter {
 
     protected List<T> datas;
 
@@ -35,6 +35,18 @@ public class DefaultAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        BaseHolder<T> holder = null;
+        if (convertView == null) {
+            holder = getHolder();
+        } else {
+            holder = (BaseHolder) convertView.getTag();
+        }
+
+        T info = datas.get(position);
+        holder.setData(info);
+
+        return holder.getContenView();
     }
+
+    public abstract BaseHolder<T> getHolder() ;
 }

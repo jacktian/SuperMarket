@@ -33,7 +33,7 @@ public class SubjectFragment extends BaseFragment {
     public LoadingPage.LoadResult load() {
 
         SubjectHttpRequest httpRequest = new SubjectHttpRequest();
-        subjectInfos =  httpRequest.load(0);
+        subjectInfos = httpRequest.load(0);
 
         return checkLoad(subjectInfos);
     }
@@ -42,7 +42,7 @@ public class SubjectFragment extends BaseFragment {
     public View createSuccessView() {
 
         ListView listView = new ListView(UIUtils.getContext());
-        listView.setAdapter(new MyAdapter(subjectInfos));
+        listView.setAdapter(new MyAdapter());
 
         return listView;
     }
@@ -52,23 +52,35 @@ public class SubjectFragment extends BaseFragment {
         TextView item_title;
     }
 
-    class MyAdapter extends DefaultAdapter<SubjectInfo>{
+    class MyAdapter extends BaseAdapter {
 
-        public MyAdapter(List<SubjectInfo> datas) {
-            super(datas);
+
+        @Override
+        public int getCount() {
+            return subjectInfos.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return subjectInfos.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = null;
             ViewHolder holder = null;
-            if (convertView == null){
+            if (convertView == null) {
                 holder = new ViewHolder();
-                view = View.inflate(UIUtils.getContext(), R.layout.subject_item,null);
+                view = View.inflate(UIUtils.getContext(), R.layout.subject_item, null);
                 holder.item_img = (ImageView) view.findViewById(R.id.item_img);
                 holder.item_title = (TextView) view.findViewById(R.id.item_title);
                 view.setTag(holder);
-            }else {
+            } else {
                 view = convertView;
                 holder = (ViewHolder) view.getTag();
             }
@@ -81,8 +93,6 @@ public class SubjectFragment extends BaseFragment {
             return view;
         }
     }
-
-
 
 
 }
