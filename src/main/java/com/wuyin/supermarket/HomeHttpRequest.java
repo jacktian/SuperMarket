@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class HomeHttpRequest {
 
-    private String url = "http://192.168.1.103:8080/WebInfos/app/homelist0";
+    private String url = "http://127.0.0.1:8090/home?index=";
 
     public void load(int index) {
         //读取本地信息
@@ -46,8 +46,8 @@ public class HomeHttpRequest {
     }
 
 
-    private String loadServer(int index) {
-        OkHttpManager.getAsync(url, new OkHttpManager.DataCallBack() {
+    public String loadServer(int index) {
+        OkHttpManager.getAsync(url+index, new OkHttpManager.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 

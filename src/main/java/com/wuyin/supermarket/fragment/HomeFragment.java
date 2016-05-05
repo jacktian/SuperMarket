@@ -40,30 +40,13 @@ public class HomeFragment extends BaseFragment {
 
 
     public LoadingPage.LoadResult load() {
-        String url = "http://192.168.1.103:8080/WebInfos/app/homelist0";
 
-        final HomeHttpRequest request = new HomeHttpRequest();
-
-        // request.load(0);
-        OkHttpManager.getAsync(url, new OkHttpManager.DataCallBack() {
-            @Override
-            public void requestFailure(Request request, IOException e) {
-
-            }
-
-            @Override
-            public void requestSuccess(String result) throws Exception {
-                parseJson(result);
-            }
-        });
+        HomeHttpRequest httpRequest = new HomeHttpRequest();
+        httpRequest.loadServer(0);
 
         return LoadingPage.LoadResult.success;
     }
 
-    private void parseJson(String result) {
-
-        Log.d("HomeFragment", result);
-    }
 
     /**
      * 创建成功的界面
