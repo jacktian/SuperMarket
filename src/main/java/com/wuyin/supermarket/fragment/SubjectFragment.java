@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.adapter.DefaultAdapter;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.model.SubjectInfo;
 import com.wuyin.supermarket.uri.Constants;
@@ -41,7 +42,7 @@ public class SubjectFragment extends BaseFragment {
     public View createSuccessView() {
 
         ListView listView = new ListView(UIUtils.getContext());
-        listView.setAdapter(new MyAdapter());
+        listView.setAdapter(new MyAdapter(subjectInfos));
 
         return listView;
     }
@@ -51,21 +52,10 @@ public class SubjectFragment extends BaseFragment {
         TextView item_title;
     }
 
-    class MyAdapter extends BaseAdapter{
+    class MyAdapter extends DefaultAdapter<SubjectInfo>{
 
-        @Override
-        public int getCount() {
-            return subjectInfos.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return subjectInfos.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
+        public MyAdapter(List<SubjectInfo> datas) {
+            super(datas);
         }
 
         @Override
