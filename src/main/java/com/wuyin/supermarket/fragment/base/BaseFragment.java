@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.utils.ViewUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
@@ -24,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
         // View view = inflater.inflate(R.layout.fragment_home, container, false);
         //framelayout不为空的时候在去new
         if (mFrameLayout == null) {
-            mFrameLayout = new LoadingPage(getActivity()) {
+            mFrameLayout = new LoadingPage(UIUtils.getContext()) {
                 @Override
                 public LoadResult load() {
                     return BaseFragment.this.load();

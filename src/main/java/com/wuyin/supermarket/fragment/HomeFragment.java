@@ -11,9 +11,11 @@ import android.widget.TextView;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.wuyin.supermarket.HomeHttpRequest;
+import com.wuyin.supermarket.application.BaseApplication;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.http.OkHttpManager;
 import com.wuyin.supermarket.utils.LogUtils;
+import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
 import java.io.IOException;
@@ -23,7 +25,6 @@ import java.io.IOException;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment {
-
 
 
     /**
@@ -42,25 +43,18 @@ public class HomeFragment extends BaseFragment {
     public LoadingPage.LoadResult load() {
 
         HomeHttpRequest httpRequest = new HomeHttpRequest();
-        httpRequest.loadServer(0);
+        httpRequest.load(0);
 
         return LoadingPage.LoadResult.success;
     }
 
-
-    /**
-     * 创建成功的界面
-     *
-     * @return
-     */
+    @Override
     public View createSuccessView() {
-        TextView tv = new TextView(getActivity());
+        TextView tv = new TextView(UIUtils.getContext());
         tv.setTextSize(30);
         tv.setText("加载成功");
         return tv;
     }
-
-
 
 
 }
