@@ -29,8 +29,9 @@
 
     <!--侧边抽屉-->
     <FrameLayout
+        android:id="@+id/fl_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="@color/colorGray"/>
+        android:background="@color/menu_bg_normal"/>
 </android.support.v4.widget.DrawerLayout>

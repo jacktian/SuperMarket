@@ -13,10 +13,13 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.fragment.factory.FragmentFactory;
+import com.wuyin.supermarket.holder.MenuHolder;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.adapter.MyViewPagerAdapter;
 import com.wuyin.supermarket.R;
@@ -29,6 +32,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
     private ActionBar mActionBar;
     private ActionBarDrawerToggle mDrawerToggle;
     private PagerTabStrip mPagerTabStrip;
+    private FrameLayout frameLayout;   //菜单的根布局
 
 
     private ViewPager mViewPager;
@@ -63,7 +67,10 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
         //设置标签下划线的颜色
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.indicatorcolor));
-
+        frameLayout = (FrameLayout) findViewById(R.id.fl_menu);
+        //frameLayout.addView();
+        MenuHolder menuHolder = new MenuHolder();
+        frameLayout.addView(menuHolder.getContentView());
     }
 
     @Override

@@ -1,8 +1,7 @@
-package com.wuyin.supermarket.fragment;
+package com.wuyin.supermarket.holder;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;

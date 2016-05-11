@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.wuyin.supermarket.adapter.base.ListBaseAdapter;
+import com.wuyin.supermarket.holder.HomePictureHolder;
 import com.wuyin.supermarket.httpresult.HomeHttpRequest;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.model.AppInfo;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
