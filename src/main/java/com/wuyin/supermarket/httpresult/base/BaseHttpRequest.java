@@ -25,7 +25,9 @@ public abstract class BaseHttpRequest<T> {
     public T load(int index) {
         loadServer(index);
 
+        //加载数据的时候睡眠1s，真实演示
         SystemClock.sleep(1000);
+
         if (results != null) {
             return parseJson(results);
         } else {

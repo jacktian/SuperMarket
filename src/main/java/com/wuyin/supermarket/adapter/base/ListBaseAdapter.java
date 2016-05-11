@@ -1,7 +1,8 @@
-package com.wuyin.supermarket.adapter;
+package com.wuyin.supermarket.adapter.base;
 
-import com.wuyin.supermarket.holder.ListBaseHolder;
-import com.wuyin.supermarket.holder.BaseHolder;
+import com.wuyin.supermarket.adapter.DefaultAdapter;
+import com.wuyin.supermarket.holder.base.ListBaseHolder;
+import com.wuyin.supermarket.holder.base.BaseHolder;
 import com.wuyin.supermarket.model.AppInfo;
 
 import java.util.List;

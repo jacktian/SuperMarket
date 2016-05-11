@@ -1,13 +1,12 @@
 package com.wuyin.supermarket.holder;
 
-import android.os.ParcelUuid;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.adapter.DefaultAdapter;
+import com.wuyin.supermarket.holder.base.BaseHolder;
 import com.wuyin.supermarket.utils.UIUtils;
-import com.wuyin.supermarket.utils.ViewUtils;
 
 /**
  * Created by yinlong on 2016/5/11.
@@ -59,6 +58,7 @@ public class MoreHolder extends BaseHolder<Integer> {
     public View getContentView() {
 
         loadMore();
+
         return super.getContentView();
     }
 

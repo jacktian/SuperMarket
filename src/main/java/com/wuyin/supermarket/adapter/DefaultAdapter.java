@@ -5,14 +5,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 
-import com.wuyin.supermarket.holder.BaseHolder;
+import com.wuyin.supermarket.holder.base.BaseHolder;
 import com.wuyin.supermarket.holder.MoreHolder;
 import com.wuyin.supermarket.manager.ThreadManager;
 import com.wuyin.supermarket.utils.UIUtils;
 
-import java.net.PortUnreachableException;
 import java.util.List;
-import java.util.concurrent.RunnableFuture;
 
 /**
  * Created by yinlong on 2016/5/5.
@@ -126,7 +124,7 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
     private MoreHolder moreHolder;
 
     private BaseHolder getMoreHolder() {
-        if (moreHolder != null){
+        if (moreHolder != null) {
             return moreHolder;
         } else {
             moreHolder = new MoreHolder(this);
@@ -144,16 +142,16 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
             @Override
             public void run() {
                 //在子线程中加载更多
-               final List<T> newData =  onLoad();
+                final List<T> newData = onLoad();
 
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (newData == null){
+                        if (newData == null) {
                             //// TODO: 2016/5/11 连接服务器失败
                             moreHolder.setData(MoreHolder.LOAD_ERROR);
 
-                        } else if (newData.size() == 0){
+                        } else if (newData.size() == 0) {
                             //// TODO: 2016/5/11 服务器没有更多数据
                             moreHolder.setData(MoreHolder.HAS_NO_MORE);
 
@@ -162,7 +160,7 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
                             moreHolder.setData(MoreHolder.HAS_MORE);
                             datas.addAll(newData);
                             //在主线程中刷新
-                                    notifyDataSetChanged();
+                            notifyDataSetChanged();
 
                         }
                     }

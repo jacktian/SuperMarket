@@ -1,11 +1,8 @@
 package com.wuyin.supermarket.fragment;
 
 
-import android.graphics.DashPathEffect;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.adapter.DefaultAdapter;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
-import com.wuyin.supermarket.holder.BaseHolder;
+import com.wuyin.supermarket.holder.base.BaseHolder;
 import com.wuyin.supermarket.model.SubjectInfo;
 import com.wuyin.supermarket.uri.Constants;
 import com.wuyin.supermarket.utils.UIUtils;

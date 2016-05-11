@@ -1,4 +1,4 @@
-package com.wuyin.supermarket.holder;
+package com.wuyin.supermarket.holder.base;
 
 import android.view.View;
 

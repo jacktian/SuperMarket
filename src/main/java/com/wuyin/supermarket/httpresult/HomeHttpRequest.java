@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class HomeHttpRequest extends BaseHttpRequest<List<AppInfo>>{
 
+    private List<String> pics = new ArrayList<>();
+
     /**
      * 解析json数据
      *
@@ -29,8 +31,16 @@ public class HomeHttpRequest extends BaseHttpRequest<List<AppInfo>>{
      */
     public List<AppInfo> parseJson(String json) {
         List<AppInfo> appInfos = new ArrayList<>();
+
         try {
             JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray picture = jsonObject.getJSONArray("picture");
+            for (int i = 0 ; i < picture.length(); i++){
+                String url = picture.getString(i);
+                pics.add(url);
+            }
+
             JSONArray jsonArray = jsonObject.getJSONArray("list");
             for (int i = 0 ; i < jsonArray.length() ; i ++){
                 JSONObject result = jsonArray.getJSONObject(i);
@@ -50,6 +60,14 @@ public class HomeHttpRequest extends BaseHttpRequest<List<AppInfo>>{
             return null;
         }
         return appInfos;
+    }
+
+    public List<String> getPics() {
+        return pics;
+    }
+
+    public void setPics(List<String> pics) {
+        this.pics = pics;
     }
 
     @Override
