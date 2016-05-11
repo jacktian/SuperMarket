@@ -42,7 +42,7 @@ public class AppFragment extends BaseFragment {
     @Override
     public View createSuccessView() {
         ListView listView  = new ListView(UIUtils.getContext());
-        listView.setAdapter(new ListBaseAdapter(appInfos) {
+        listView.setAdapter(new ListBaseAdapter(appInfos,listView) {
             @Override
             protected List<AppInfo> onLoad() {
                 AppHttpRequest request = new AppHttpRequest();

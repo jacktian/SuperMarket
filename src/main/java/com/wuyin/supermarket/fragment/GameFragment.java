@@ -31,7 +31,7 @@ public class GameFragment extends BaseFragment {
     @Override
     public View createSuccessView() {
         ListView listView = new ListView(UIUtils.getContext());
-        listView.setAdapter(new ListBaseAdapter(appInfos) {
+        listView.setAdapter(new ListBaseAdapter(appInfos,listView) {
             @Override
             protected List<AppInfo> onLoad() {
                 GameHttpRequest request = new GameHttpRequest();

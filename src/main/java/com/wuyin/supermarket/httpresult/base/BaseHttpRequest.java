@@ -84,7 +84,7 @@ public abstract class BaseHttpRequest<T> {
      * @return
      */
     public String loadServer(int index) {
-        OkHttpManager.getAsync(Constants.BASE_URL + getKey() + "?index=" + index, new OkHttpManager.DataCallBack() {
+        OkHttpManager.getAsync(Constants.BASE_URL + getKey() + "?index=" + index + getParams(), new OkHttpManager.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 
@@ -98,6 +98,10 @@ public abstract class BaseHttpRequest<T> {
         });
 
         return results;
+    }
+
+    public String getParams() {
+        return "";
     }
 
     /**

@@ -2,7 +2,10 @@ package com.wuyin.supermarket.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.wuyin.supermarket.holder.base.BaseHolder;
@@ -15,15 +18,19 @@ import java.util.List;
 /**
  * Created by yinlong on 2016/5/5.
  */
-public abstract class DefaultAdapter<T> extends BaseAdapter {
+public abstract class DefaultAdapter<T> extends BaseAdapter implements AdapterView.OnItemClickListener {
 
     private static final int DEFAULT_ITEM = 0;
     private static final int MORE_ITEM = 1;
+    private ListView lv;
 
     protected List<T> datas;
 
-    public DefaultAdapter(List<T> datas) {
+    public DefaultAdapter(List<T> datas, ListView lv) {
         this.datas = datas;
+        this.lv = lv;
+        //给item设置点击事件
+        lv.setOnItemClickListener(this);
     }
 
     @Override
@@ -174,4 +181,19 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
      * 加载数据，让子类去加载
      */
     protected abstract List<T> onLoad();
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       // Toast.makeText(UIUtils.getContext(), "position" + position, Toast.LENGTH_SHORT).show();
+        position = position - lv.getHeaderViewsCount();  //获取到顶部条目的数量，修正position
+        onInnerItemClick(position);
+    }
+
+    /**
+     * 处理条目的点击事件
+     * @param position
+     */
+    public void onInnerItemClick(int position) {
+
+    }
 }

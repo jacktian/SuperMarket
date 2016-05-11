@@ -10,5 +10,6 @@
     <color name="color_white">#fff</color>
 
     <color name="menu_bg_press">#cecece</color>
+    <color name="detail_screen_bg">#adadad</color>
     <color name="menu_bg_normal">#f0f1f3</color>
 </resources>

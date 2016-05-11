@@ -1,17 +1,20 @@
 package com.wuyin.supermarket.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.wuyin.supermarket.adapter.base.ListBaseAdapter;
 import com.wuyin.supermarket.holder.HomePictureHolder;
 import com.wuyin.supermarket.httpresult.HomeHttpRequest;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.model.AppInfo;
+import com.wuyin.supermarket.ui.DetailActivity;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
@@ -63,7 +66,7 @@ public class HomeFragment extends BaseFragment {
 
 
 
-        listView.setAdapter(new ListBaseAdapter(appInfos) {
+        listView.setAdapter(new ListBaseAdapter(appInfos,listView) {
             @Override
             protected List<AppInfo> onLoad() {
                 HomeHttpRequest request = new HomeHttpRequest();
@@ -71,6 +74,15 @@ public class HomeFragment extends BaseFragment {
 
                 appInfos.addAll(load);
                 return load;
+            }
+
+            @Override
+            public void onInnerItemClick(int position) {
+                super.onInnerItemClick(position);
+                //Toast.makeText(UIUtils.getContext(), "position" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UIUtils.getContext(), DetailActivity.class);
+                intent.putExtra("packageName",appInfos.get(position).getPackageName());
+                startActivity(intent);
             }
         });
         return listView;
