@@ -82,6 +82,6 @@ public class DetailHttpRequest extends BaseHttpRequest<AppInfo> {
      */
     @Override
     public String getParams() {
-        return "&packageName" + packageName;
+        return "&packageName=" + packageName;
     }
 }
