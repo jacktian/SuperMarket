@@ -8,15 +8,15 @@ import android.graphics.drawable.Drawable;
 public class UserInfo {
 
     private String name;
-    private String icon;
+    private String url;
     private String email;
 
     public String getIcon() {
-        return icon;
+        return url;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setIcon(String url) {
+        this.url = url;
     }
 
     public String getEmail() {
@@ -33,5 +33,11 @@ public class UserInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserInfo(String name, String url, String email) {
+        this.name = name;
+        this.url = url;
+        this.email = email;
     }
 }
