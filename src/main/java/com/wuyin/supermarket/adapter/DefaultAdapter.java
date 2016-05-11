@@ -45,7 +45,7 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
         T info = datas.get(position);
         holder.setData(info);
 
-        return holder.getContenView();
+        return holder.getContentView();
     }
 
     public abstract BaseHolder<T> getHolder() ;

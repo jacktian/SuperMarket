@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wuyin.supermarket.ListBaseAdapter;
+import com.wuyin.supermarket.ListBaseHolder;
 import com.wuyin.supermarket.adapter.BaseHolder;
 import com.wuyin.supermarket.adapter.DefaultAdapter;
 import com.wuyin.supermarket.httpresult.HomeHttpRequest;
@@ -34,7 +34,6 @@ public class HomeFragment extends BaseFragment {
 
 
     List<AppInfo> appInfos = new ArrayList<>();
-    AppInfo appInfo;
 
     /**
      * 当fragment挂载到activity中的时候调用，要不然有个问题
@@ -62,13 +61,13 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View createSuccessView() {
         ListView listView = new ListView(UIUtils.getContext());
-        listView.setAdapter(new HomeAdapter(appInfos));
+        listView.setAdapter(new ListBaseAdapter(appInfos));
         return listView;
     }
 
-    /**
+   /* *//**
      * adapter
-     */
+     *//*
     class HomeAdapter extends DefaultAdapter<AppInfo> {
 
         public HomeAdapter(List<AppInfo> datas) {
@@ -80,63 +79,11 @@ public class HomeFragment extends BaseFragment {
         @Override
         public BaseHolder<AppInfo> getHolder() {
 
-            return new ViewHolder();
+            return new ListBaseHolder();
         }
     }
+*/
 
-    /**
-     * ViewHolder
-     */
-    class ViewHolder extends BaseHolder<AppInfo> {
-        ImageView image_item;
-        TextView item_title, item_size, item_bottom;
-        RatingBar item_rating;
-
-        private View contenView;
-
-
-
-        public View getContenView() {
-            return contenView;
-        }
-
-        public ViewHolder() {
-
-        }
-
-        @Override
-        public View initView() {
-            contenView = View.inflate(UIUtils.getContext(), R.layout.home_item, null);
-            image_item = (ImageView) contenView.findViewById(R.id.item_icon);
-            item_title = (TextView) contenView.findViewById(R.id.item_title);
-            item_size = (TextView) contenView.findViewById(R.id.item_size);
-            item_bottom = (TextView) contenView.findViewById(R.id.item_bottom);
-            item_rating = (RatingBar) contenView.findViewById(R.id.item_rating);
-            contenView.setTag(this);
-            return contenView;
-        }
-
-        @Override
-        public void refreshData(AppInfo data) {
-            //加载图片
-            Glide.with(UIUtils.getContext())
-                    .load(Constants.IMAGE_URL + data.getIconUrl())
-                    .error(R.mipmap.ic_default)
-                    .into(image_item);
-
-            item_title.setText(data.getName());
-
-            //得到app的大小
-            String size = android.text.format.Formatter.formatFileSize(UIUtils.getContext(), data.getSize());
-            item_size.setText(size);
-            item_bottom.setText(data.getDes());
-
-            //设置ratingBar
-            float stars = data.getStars();
-            item_rating.setRating(stars);
-        }
-
-    }
 
 
 }

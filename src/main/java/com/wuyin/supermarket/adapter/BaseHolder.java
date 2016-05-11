@@ -18,6 +18,10 @@ public abstract class BaseHolder<T> {
         contentView.setTag(this);
     }
 
+    /**
+     * 初始化的方法，留给子类去实现
+     * @return
+     */
     public abstract View initView();
 
     public void setData(T data) {
@@ -25,10 +29,11 @@ public abstract class BaseHolder<T> {
         refreshData(data);
     }
 
+    /*刷新数据的方法*/
     public abstract void refreshData(T data) ;
 
 
-    public View getContenView() {
+    public View getContentView() {
 
         return contentView;
     }

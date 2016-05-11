@@ -1,15 +1,19 @@
 package com.wuyin.supermarket.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ListView;
 
-import com.wuyin.supermarket.R;
+import com.wuyin.supermarket.ListBaseAdapter;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
+import com.wuyin.supermarket.httpresult.AppHttpRequest;
+import com.wuyin.supermarket.model.AppInfo;
+import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,13 +22,29 @@ import com.wuyin.supermarket.view.LoadingPage;
 public class AppFragment extends BaseFragment {
 
 
+    List<AppInfo> appInfos = new ArrayList<>();
+
+    /**
+     * 请求服务器，加载数据
+     * @return
+     */
     @Override
     public LoadingPage.LoadResult load() {
-        return LoadingPage.LoadResult.error;
+        AppHttpRequest request = new AppHttpRequest();
+        appInfos = request.load(0);
+        return checkLoad(appInfos);
     }
 
+    /**
+     * 当加载成功的时候显示界面
+     * @return
+     */
     @Override
     public View createSuccessView() {
-        return null;
+        ListView listView  = new ListView(UIUtils.getContext());
+        listView.setAdapter(new ListBaseAdapter(appInfos));
+        return listView;
     }
+
+
 }
