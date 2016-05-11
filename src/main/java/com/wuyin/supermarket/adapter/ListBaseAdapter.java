@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by yinlong on 2016/5/11.
  */
-public class ListBaseAdapter extends DefaultAdapter<AppInfo> {
+public abstract class ListBaseAdapter extends DefaultAdapter<AppInfo> {
     public ListBaseAdapter(List<AppInfo> datas) {
         super(datas);
     }
@@ -18,4 +18,7 @@ public class ListBaseAdapter extends DefaultAdapter<AppInfo> {
     public BaseHolder<AppInfo> getHolder() {
         return new ListBaseHolder();
     }
+
+    @Override
+    protected abstract List<AppInfo> onLoad();
 }

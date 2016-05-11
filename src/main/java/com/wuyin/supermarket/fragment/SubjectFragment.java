@@ -1,6 +1,7 @@
 package com.wuyin.supermarket.fragment;
 
 
+import android.graphics.DashPathEffect;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.adapter.DefaultAdapter;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
+import com.wuyin.supermarket.holder.BaseHolder;
 import com.wuyin.supermarket.model.SubjectInfo;
 import com.wuyin.supermarket.uri.Constants;
 import com.wuyin.supermarket.utils.UIUtils;
@@ -42,55 +44,51 @@ public class SubjectFragment extends BaseFragment {
     public View createSuccessView() {
 
         ListView listView = new ListView(UIUtils.getContext());
-        listView.setAdapter(new MyAdapter());
+        listView.setAdapter(new MyAdapter(subjectInfos));
 
         return listView;
     }
 
-    class ViewHolder {
+    class ViewHolder extends BaseHolder<SubjectInfo> {
         ImageView item_img;
         TextView item_title;
+
+        @Override
+        public View initView() {
+            View contentView = UIUtils.inflate(R.layout.subject_item);
+            this.item_img = (ImageView) contentView.findViewById(R.id.item_img);
+            this.item_title = (TextView) contentView.findViewById(R.id.item_title);
+            return contentView;
+        }
+
+        @Override
+        public void refreshData(SubjectInfo data) {
+            this.item_title.setText(data.getDes());
+            Glide.with(UIUtils.getContext()).load(Constants.IMAGE_URL + data.getUrl())
+                    .error(R.mipmap.ic_default)
+                    .into(this.item_img);
+        }
     }
 
-    class MyAdapter extends BaseAdapter {
+    class MyAdapter extends DefaultAdapter<SubjectInfo> {
+
+
+        public MyAdapter(List<SubjectInfo> datas) {
+            super(datas);
+        }
 
 
         @Override
-        public int getCount() {
-            return subjectInfos.size();
+        public BaseHolder<SubjectInfo> getHolder() {
+            return new ViewHolder();
         }
 
         @Override
-        public Object getItem(int position) {
-            return subjectInfos.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = null;
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                view = View.inflate(UIUtils.getContext(), R.layout.subject_item, null);
-                holder.item_img = (ImageView) view.findViewById(R.id.item_img);
-                holder.item_title = (TextView) view.findViewById(R.id.item_title);
-                view.setTag(holder);
-            } else {
-                view = convertView;
-                holder = (ViewHolder) view.getTag();
-            }
-            SubjectInfo subjectInfo = subjectInfos.get(position);
-            Glide.with(UIUtils.getContext()).load(Constants.IMAGE_URL + subjectInfo.getUrl())
-                    .error(R.mipmap.ic_default)
-                    .into(holder.item_img);
-
-            holder.item_title.setText(subjectInfo.getDes());
-            return view;
+        protected List<SubjectInfo> onLoad() {
+            SubjectHttpRequest request = new SubjectHttpRequest();
+            List<SubjectInfo> load = request.load(subjectInfos.size());
+            subjectInfos.addAll(load);
+            return load;
         }
     }
 

@@ -7,9 +7,12 @@ import android.widget.BaseAdapter;
 
 import com.wuyin.supermarket.holder.BaseHolder;
 import com.wuyin.supermarket.holder.MoreHolder;
+import com.wuyin.supermarket.manager.ThreadManager;
+import com.wuyin.supermarket.utils.UIUtils;
 
 import java.net.PortUnreachableException;
 import java.util.List;
+import java.util.concurrent.RunnableFuture;
 
 /**
  * Created by yinlong on 2016/5/5.
@@ -120,9 +123,57 @@ public abstract class DefaultAdapter<T> extends BaseAdapter {
         return holder.getContentView();  //  如果当前Holder 恰好是MoreHolder  证明MoreHOlder已经显示
     }
 
+    private MoreHolder moreHolder;
+
     private BaseHolder getMoreHolder() {
-        return new MoreHolder();
+        if (moreHolder != null){
+            return moreHolder;
+        } else {
+            moreHolder = new MoreHolder(this);
+        }
+        return moreHolder;
     }
 
     public abstract BaseHolder<T> getHolder();
+
+    /**
+     * 当加载更多条目显示的时候调用这个方法
+     */
+    public void loadMore() {
+        ThreadManager.getInstance().createLongPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                //在子线程中加载更多
+               final List<T> newData =  onLoad();
+
+                UIUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (newData == null){
+                            //// TODO: 2016/5/11 连接服务器失败
+                            moreHolder.setData(MoreHolder.LOAD_ERROR);
+
+                        } else if (newData.size() == 0){
+                            //// TODO: 2016/5/11 服务器没有更多数据
+                            moreHolder.setData(MoreHolder.HAS_NO_MORE);
+
+                        } else {
+                            //成功了   给listview添加新的数据
+                            moreHolder.setData(MoreHolder.HAS_MORE);
+                            datas.addAll(newData);
+                            //在主线程中刷新
+                                    notifyDataSetChanged();
+
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    /**
+     * 加载数据，让子类去加载
+     */
+    protected abstract List<T> onLoad();
 }

@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wuyin.supermarket.R;
-import com.wuyin.supermarket.holder.BaseHolder;
 import com.wuyin.supermarket.model.AppInfo;
 import com.wuyin.supermarket.uri.Constants;
 import com.wuyin.supermarket.utils.UIUtils;
