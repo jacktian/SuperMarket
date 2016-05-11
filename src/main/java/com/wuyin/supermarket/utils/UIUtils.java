@@ -3,6 +3,8 @@ package com.wuyin.supermarket.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import com.wuyin.supermarket.application.BaseApplication;
 
@@ -70,5 +72,32 @@ public class UIUtils {
             //获取handler
             BaseApplication.getmHandler().post(runnable);
         }
+    }
+
+    public static View inflate(int id) {
+        return View.inflate(getContext(), id, null);
+    }
+
+    public static Drawable getDrawalbe(int id) {
+        return getResources().getDrawable(id);
+    }
+
+    public static int getDimens(int homePictureHeight) {
+        return (int) getResources().getDimension(homePictureHeight);
+    }
+    /**
+     * 延迟执行 任务
+     * @param run   任务
+     * @param time  延迟的时间
+     */
+    public static void postDelayed(Runnable run, int time) {
+        BaseApplication.getmHandler().postDelayed(run, time); // 调用Runable里面的run方法
+    }
+    /**
+     * 取消任务
+     * @param auToRunTask
+     */
+    public static void cancel(Runnable auToRunTask) {
+        BaseApplication.getmHandler().removeCallbacks(auToRunTask);
     }
 }

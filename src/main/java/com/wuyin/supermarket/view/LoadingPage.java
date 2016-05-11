@@ -126,7 +126,7 @@ public abstract class LoadingPage extends FrameLayout {
             STATE = STATE_LOADING;
         }
 
-        ThreadManager.getInstance().createShortPool(3,3,5000)
+        ThreadManager.getInstance().createShortPool(3, 3, 5000)
                 .execute(new Runnable() {
                     @Override
                     public void run() {

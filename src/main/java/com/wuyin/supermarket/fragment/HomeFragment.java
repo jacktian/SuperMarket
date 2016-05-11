@@ -5,21 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.wuyin.supermarket.ListBaseAdapter;
-import com.wuyin.supermarket.ListBaseHolder;
-import com.wuyin.supermarket.adapter.BaseHolder;
-import com.wuyin.supermarket.adapter.DefaultAdapter;
+import com.wuyin.supermarket.adapter.ListBaseAdapter;
 import com.wuyin.supermarket.httpresult.HomeHttpRequest;
-import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.model.AppInfo;
-import com.wuyin.supermarket.uri.Constants;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 

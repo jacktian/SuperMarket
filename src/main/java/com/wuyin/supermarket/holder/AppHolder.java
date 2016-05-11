@@ -1,4 +1,4 @@
-package com.wuyin.supermarket.adapter;
+package com.wuyin.supermarket.holder;
 
 import android.view.View;
 import android.widget.ImageView;
