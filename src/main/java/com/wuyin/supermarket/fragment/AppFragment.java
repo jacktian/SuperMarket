@@ -1,14 +1,17 @@
 package com.wuyin.supermarket.fragment;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.wuyin.supermarket.adapter.base.ListBaseAdapter;
 import com.wuyin.supermarket.fragment.base.BaseFragment;
 import com.wuyin.supermarket.httpresult.AppHttpRequest;
 import com.wuyin.supermarket.model.AppInfo;
+import com.wuyin.supermarket.ui.DetailActivity;
 import com.wuyin.supermarket.utils.UIUtils;
 import com.wuyin.supermarket.view.LoadingPage;
 
@@ -51,7 +54,19 @@ public class AppFragment extends BaseFragment {
                 return load;
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UIUtils.getContext(), DetailActivity.class);
+                intent.putExtra("packageName",appInfos.get(position).getPackageName());
+                startActivity(intent);
+            }
+        });
+
+
         return listView;
+
     }
 
 

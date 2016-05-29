@@ -1,14 +1,17 @@
 package com.wuyin.supermarket.holder;
 
+import android.text.format.Formatter;
 import android.transition.CircularPropagation;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wuyin.supermarket.R;
 import com.wuyin.supermarket.holder.base.BaseHolder;
 import com.wuyin.supermarket.model.AppInfo;
+import com.wuyin.supermarket.uri.Constants;
 import com.wuyin.supermarket.utils.UIUtils;
 
 /**
@@ -42,6 +45,13 @@ public class DetailInfoHolder  extends BaseHolder<AppInfo>{
 
     @Override
     public void refreshData(AppInfo data) {
+        Glide.with(UIUtils.getContext()).load(Constants.IMAGE_URL+data.getIconUrl()).into(item_icon);
+        item_title.setText(data.getName());
+        item_rating.setRating(data.getStars());
+        item_download.setText("下载:"+data.getDownloadNum());
+        item_version.setText("版本:"+data.getVersion());
+        item_date.setText("时间:"+data.getDate());
+        item_size.setText("大小:"+ Formatter.formatFileSize(UIUtils.getContext(), data.getSize()));
 
     }
 }
